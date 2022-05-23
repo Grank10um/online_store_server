@@ -11,8 +11,6 @@ class ValuationController {
             next(ApiError.badRequest(e.message))
         }
     }
-
-
     async getAll(req, res){
         let valuations;
         valuations=await Valuation.findAll()
