@@ -12,6 +12,7 @@ class ValuationController {
         }
     }
 
+
     async getAll(req, res){
         let valuations;
         valuations=await Valuation.findAll()
