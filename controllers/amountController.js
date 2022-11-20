@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError')
-const {Valuation, Apartment} = require('../models/model')
+const {Valuation} = require('../models/model')
 
 class AmountController {
     async create(req, res, next) {
@@ -25,11 +25,6 @@ class AmountController {
             },
         )
         return res.json(amount)
-    }
-    async getOneAmount(req,res) { //доделать суммирование
-        const {id} = req.params
-        const apartment = await Apartment.sum('val_sum', {where: {id}})
-        return res.json(apartment)
     }
 }
 

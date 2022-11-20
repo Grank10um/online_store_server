@@ -1,5 +1,6 @@
 const ApiError = require('../error/ApiError')
-const {Valuation} = require('../models/model')
+const {Valuation, User} = require('../models/model')
+const { Op } = require('sequelize')
 
 class ValuationController {
     async create(req, res, next) {
@@ -26,7 +27,27 @@ class ValuationController {
             },
         )
         return res.json(valuation)
+    }
 
+    async getSumByOne(req,res) {
+        const {id} = req.params
+        const valuation = await Valuation.sum('val_sum',{
+            where: {apartmentId: id,
+                val_type:{
+                [Op.notIn]: [0]
+
+                } } })
+        return res.json(valuation)
+    }
+
+    async getDetailsByOne(req,res) {
+        const {id} = req.params
+        const valuation = await Valuation.findAll({
+            where: {apartmentId: id},
+            //order: [Valuation, 'createdAt' , 'DESC']
+            //include: [{model: User, as: 'user', attributes:['email']}]
+        })
+        return res.json(valuation)
     }
 
 }

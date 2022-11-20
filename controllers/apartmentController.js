@@ -8,8 +8,6 @@ class ApartmentController {
             const apartment = await Apartment.create({ap_adress, statusId});
             let apartmentMessage = res.json(JSON.parse(apartment.id))
             return (apartmentMessage)
-
-            //console.log(`apartment`,apartmentMessage)
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
@@ -17,7 +15,9 @@ class ApartmentController {
 
     async getAll(req, res) {
         let apartments;
-        apartments = await Apartment.findAll({include: [{model: Status, as: 'status'}]})
+        apartments = await Apartment.findAll(
+            {include: [{model: Status, as: 'status', attributes:['status_name']}]}
+        )
         return res.json(apartments)
     }
 
