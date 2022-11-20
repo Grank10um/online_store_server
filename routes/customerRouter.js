@@ -3,7 +3,7 @@ const router = new Router
 const customerController = require('../controllers/customerController')
 const checkRole = require('../middleware/CheckRoleMiddleware')
 
-router.post('/', customerController.create)
+router.post('/',checkRole('ADMIN'), customerController.create)
 router.get('/', customerController.getAll)
 router.get('/:id', customerController.getOne)
 
